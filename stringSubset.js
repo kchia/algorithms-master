@@ -1,3 +1,7 @@
+/**
+  O(n) time & space solution
+**/
+
 Array.prototype.isSubsetOf = function(array) {
 
   if(typeof array === 'undefined' || !array || array.length === 0) return false;
@@ -16,6 +20,3 @@ Array.prototype.isSubsetOf = function(array) {
 
 };
 
-/**
-  O(n) time & space solution
-**/
