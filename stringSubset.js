@@ -1,4 +1,7 @@
 Array.prototype.isSubsetOf = function(array) {
+
+  if(typeof array === 'undefined' || !array || array.length === 0) return false;
+  
   var memo = {};
 
   for(var i = 0; i < array.length; i++) {
