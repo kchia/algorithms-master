@@ -37,16 +37,59 @@ var hasPalindromePermutation = function(str) {
   Given a string s, form a shortest palindrome by appending 
   characters at the start of the string. 
   Example: abab => babab. abcd => dcbabcd. ananab    => bananab.
+  Approaches:
+  - reverse string, append to the start (but does not give you shortest pal necessarily)
+  - append reversed string to the end
+    - 'abab' => 'ababbaba'
+    - s + revS 
+    - Find suffix(revS) which is longest prefix(s)
+    - Remove the longest suffix from revS
+    - revS - Lsuffix(revS) + s
+    - KMP partial match table algorithm has O(n) time complexity
 **/
-var shortestPalindrome = function() {
+var shortestPalindrome = function(str) {
+  var reversed = str.split('').reverse().join('');
 
+  var combined = str + '#' + reversed;
+  
+  var KMPTable = [];
+
+  // build KMP table
+    // i -> suffix bound
+    // j -> prefix bound
+
+  for(var j, i = 1; i < combined.length; i++) {
+
+    //update prefix boundary to previous match position
+    j = KMPTable[i - 1] || 0;
+
+    //move to the last prefix boundary match
+    while(j > 0 && combined.charAt(i) !== combined.charAt(j)) {
+      j = KMPTable[j - 1];
+    }
+
+    //if prefix boundary matches suffix boundary,
+    //increase prefix length 
+    if(combined.charAt(i) === combined.charAt(j)) KMPTable[i] = j + 1;
+
+  }
+
+  console.log(KMPTable)
+  return reversed.substring(0, str.length - KMPTable[combined.length - 1]) + str;
 };
 
+console.log(shortestPalindrome('ananab'));
 
 /**
   Given a string S, find the minimum number of cuts required to separate the string into a set of palindromes.
   Function to return the minimum splits in order to make a string 
   collection of Palindrome Ex: (abaa) -> aba | a
+
+  S is a palindrome if
+  1. first and last characters match
+  2. substring (excluding first and last chars) is a palindrome
+
+  O(N^2)
 **/
 
 var palindromeMinCut = function() {
@@ -61,6 +104,8 @@ var palindromeMinCut = function() {
   * palindrome is "a racecar a". Count whitespaces as valid characters. Other
   * palindromes in the above string include "dad", "ete", " dad " (including
   * whitespace on each side of dad).
+
+  O(n^2) solution
 
 **/
 var longestPalindromicSubstring = function(string) {
@@ -96,10 +141,66 @@ var longestPalindromicSubstring = function(string) {
 };
 
 /**
-  Given a string S, find the longest palindromic substring.
+  Given a string S, find the longest palindromic subsequence.
+
+  Dynamic Programming
+  - Each problem can be divided into subproblems (e.g., as displayed in 
+  a partial recursion tree)
+  - There are overlapping subproblems which increase the time complexity
+  of our solution (e.g., recomputing values)
+  - To decrease overlapping of subproblems, we can save solution
+  of previously solved subproblems
+
+  The naive solution for this problem is to generate all subsequences of the 
+  given sequence and find the longest palindromic subsequence. 
+  This solution is exponential in term of time complexity. 
+
+  Time Complexity of the implementation below is O(n^2) which is much 
+  better than the worst case time complexity of Naive Recursive implementation.
+
+  This problem is close to the Longest Common Subsequence (LCS) problem. 
+  In fact, we can use LCS as a subroutine to solve this problem. 
+  Following is the two step solution that uses LCS.
+  1) Reverse the given sequence and store the reverse in another array say rev[0..n-1]
+  2) LCS of the given sequence and rev[] will be the longest palindromic sequence.
+  This solution is also a O(n^2) solution.
 **/
 
-var longestPalindromicSubsequence = function() {
+var longestPalindromicSubsequence = function(sequence) {
+
+  var length = sequence.length;
+  var i, j, substringLength;
+
+  // create a table to store results of subproblems
+  var table = [];
+
+  // strings of length 1 are palindrome of length 1
+  for(i = 0, i < length; i ++) {
+    table[i][i] = 1;
+
+    // Build the table. Note that the lower diagonal values of table are
+    // useless and not filled in the process. The values are filled in a
+    // manner similar to Matrix Chain Multiplication DP solution (See
+    // http://www.geeksforgeeks.org/archives/15553). 
+
+    for(substringLength = 2; substringLength <= length; substringLength++) {
+
+      for(i = 0; i < length - substringLength + 1; i++) {
+
+        j = i + substringLength - 1;
+
+        if(sequence.charAt(i) === sequence.charAt(j) && substringLength === 2) {
+          table[i][j] = 2;
+        } else if(sequence.charAt(i) === sequence.charAt(j)) {
+          table[i][j] = table[i+1][j-1] + 2;
+        } else {
+          table[i][j] = Math.max(table[i][j-1], table[i+1][j]);
+        }
+      }
+    }
+  }
+
+  return table[0][length - 1];
 
 };
 
