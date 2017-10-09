@@ -43,7 +43,7 @@ var sortedTwoSum = function(array, target) {
   If the target integer is not found return [-1, -1].
   Values of the array can be positive or negative integers.
 
-  The naive solution is O(N 2 ) time which takes every possible pair and compares the sum to
+  The naive solution is O(N^2 ) time which takes every possible pair and compares the sum to
   the target value, however only uses O(1) space. This solution takes only O(N) time but
   increases the space to O(N) as well.
 

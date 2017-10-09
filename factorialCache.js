@@ -1,3 +1,8 @@
+/**
+Each recursive call adds a new layer to the stack, 
+which means that if your algorithm recurses to a depth of n, it uses at least 0 (n) memory.
+**/
+
 var factorialCache = function(n) {
 
   var cache = {};

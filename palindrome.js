@@ -81,7 +81,8 @@ var shortestPalindrome = function(str) {
 console.log(shortestPalindrome('ananab'));
 
 /**
-  Given a string S, find the minimum number of cuts required to separate the string into a set of palindromes.
+  Given a string S, find the minimum number of cuts required to
+  separate the string into a set of palindromes.
   Function to return the minimum splits in order to make a string 
   collection of Palindrome Ex: (abaa) -> aba | a
 
@@ -90,6 +91,14 @@ console.log(shortestPalindrome('ananab'));
   2. substring (excluding first and last chars) is a palindrome
 
   O(N^2)
+
+  See how this dude set up the problem: https://www.youtube.com/watch?v=lDYIvtBVmgo
+  use 'abcbm' example
+
+  if(isPalindrome(i,j))
+    T[i][j] = 0
+  else
+    T[i][j] = 1 + min(T[i][k], T[k+1][j]) where k = i...j-1
 **/
 
 var palindromeMinCut = function() {
