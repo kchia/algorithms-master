@@ -45,21 +45,13 @@ function BowlingAlley (players, maxPins, maxFrames) {
   }
 }
 
-BowlingAlley.prototype.getPlayers = function() {
-  return this._players;
-};
-
-BowlingAlley.prototype.getMaxFrames = function() {
-  return this._maxFrames;
-};
-
 BowlingAlley.prototype.initialize = function() {
   const players = this.getPlayers();
-  const maxFrames = this.getMaxFrames();
-  let currentFrame = 0;
+  let currentFrame = 1;
   let player;
 
-  while(currentFrame <= maxFrames) {
+  while(currentFrame <= this._maxFrames) {
+    console.log('Currently playing frame:' + currentFrame);
     for(let i = 0; i < players.length; i++) {
       player = players[i];
       player.play();
@@ -71,11 +63,15 @@ BowlingAlley.prototype.initialize = function() {
   this.identifyWinner();
 };
 
+BowlingAlley.prototype.getPlayers = function() {
+  return this._players;
+};
+
 BowlingAlley.prototype.identifyWinner = function() {
   const players = this.getPlayers();
   let highestScore = 0;
   let score;
-  let winner;
+  let winners = [];
   let player;
 
   for(let i = 0; i < players.length; i++) {
@@ -83,23 +79,24 @@ BowlingAlley.prototype.identifyWinner = function() {
     score = player.getScore();
     if(score > highestScore) {
       highestScore = score;
-      winner = player;
+      winners.push(player);
+    } else {
+      if(score === highestScore) {
+        winners.push(player);
+      }
     }
+
   }
 
-  console.log(winner);
-  return winner;
+  // return tied winners;
+  console.log(winners);
 };
 
 BowlingAlley.prototype.updateScore = function(player) {
   let score = player.getScore();
 
-  this._scoreboard[player] = score;
-
-  if(score === 10) {
-    console.log(player.getName() + ' got a strike!');
-  }
-
+  this._scoreboard[player.getName()] = score;
+  console.log('The current scoreboard is: ' + JSON.stringify(this._scoreboard));
 
 };
 
@@ -122,10 +119,26 @@ Player.prototype.incrementScore = function(size) {
 
 Player.prototype.play = function(game) {
 
+  let name = this.getName();
+
   let score;
 
   for(let i = 0; i < 2; i++) {
     score = Math.floor(Math.random() * 10) + 1;  
+    console.log(name + ' scored a ' + score);
+
+    if(score === 10) {
+
+      // hitting a 10 on first ball
+      if(i === 0) {
+        console.log(name + ' got a strike!');
+      } else {
+        // hitting a 10 on second ball
+        console.log(name + ' got a spare!');
+      }
+
+    }
+
     this.incrementScore(score);
   }
 
