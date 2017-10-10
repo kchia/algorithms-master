@@ -139,3 +139,19 @@ Index.prototype.search = function(target){
 
 
 
+// we process on the order of 2 millions unique pieces of content a month, each of which needs to be discoverable in an intuitive and natural way.  In that spirit, the task today is to create a very rudimentary full-text search engine.
+
+// Algorithmic search works in a very similar fashion to how old-fashioned dead tree books are indexed.  If you pull a textbook off of a shelf and flip to the back, you’d find the index, which is alphabetically sorted list of terms coupled with a list of page numbers where you can find references to those terms.  If, for example, you wanted to read about elephants, you could very easily 1) scan the index to the letter E, 2) find “elephant”, 3) scan across and see that “elephant” is written about on page 450, and finally 4) flip to page 450 (since the pages are numerically ordered) and read about elephants.
+
+// Imagine how you would solve this problem without the index.  You would have to “brute force” scan every word on every page of the book until you found “elephant”.  You’d still end up with the same results as the former method, but it would take you a lot longer.
+
+// The goal today is to implement index technique.
+
+// Your program must have two publicly visible methods.  The first can be called “add”.  “Add” simply adds a given document to your index.  The “add” method takes two parameters, 1) the unique identifier for the document, and 2) a single string representing the entire body of the document.  If you wanted to add a single page of the textbook to your index, you would pass the page number as the first parameter and the contents of the page as the second parameter.
+
+// The second method can be called “search”.  “Search” simply allows the caller to search the index that has been built up by repeatedly calling the “add” method.  Search takes a single parameter, a string query.  The query is a space delimited set of the terms that you are searching for.  For simplicity’s sake, you should interpret the query as a boolean AND query.  Meaning that all of the terms in your query need to appear somewhere in each of the documents that are part of the result set.  As the return type for “search”, you need to return only a collection of the document ids that match your query.  You don’t need to return the actual document body.
+
+// As a final point of guidance, in implementing this solution, you will need to utilize a data structure to store your index.  Take a second to think about an elegant and appropriate data structure for this problem.
+
+// Good luck!
+
