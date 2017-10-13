@@ -51,7 +51,7 @@ var wordBreak = function(words, dict) {
 
   if(!words) return true;
 
-  var validWords = [];
+  var validWords = new Set();
 
   var length = words.length;
 
@@ -62,23 +62,25 @@ var wordBreak = function(words, dict) {
     prefix = words.substr(0, i + 1);
 
     if(dictionaryContains(prefix, dict)) {
-      validWords[i] = true;
+      validWords.add(prefix);
     }
 
-    if(validWords[i] && ( i === length - 1)) {
+    // end of the array
+    if(validWords.has(prefix) && ( i === length - 1)) {
       return true;
     }
 
-    if(validWords[i]) {
+    // still iterating through the array
+    if(validWords.has(prefix)) {
       for(var j = i + 1; j < length; j++) {
 
         suffix = words.substr(i + 1, j + 1);
 
         if(dictionaryContains(suffix, dict)) {
-          validWords[j] = true;
+          validWords.add(suffix);
         }
 
-        if(validWords[j] && j === length - 1) {
+        if(validWords.has(suffix) && j === length - 1) {
           return true;
         }
       }
