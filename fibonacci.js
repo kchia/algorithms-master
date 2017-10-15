@@ -7,8 +7,14 @@
     - The total number of nodes in the tree will represent the runtime, 
     since each call only does 0(1) work outside of its recursive calls.
     Therefore, the number of calls is the runtime => O(2^n) runtime
+
+    - We can use the earlier pattern we'd established for recursive calls: O( branches^depth). 
+    There are 2 branches per call, and we go as deep as N, therefore the runtime is 0 (2^n) .
     (without memoization)
     - After memoization, O(n) runtime
+
+This technique, called memoization, is a very common one to optimize exponential time recursive algo-
+rithms.
 
 **/
 

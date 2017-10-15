@@ -137,9 +137,9 @@ var wordBreakRecursiveOptimized = function(words, dict) {
   var memo = {};
 
   var subroutine = function(words, dict) {
-    if(dictionaryContains(words, dict)) return words;
-
     if(memo[words]) return memo[words];
+
+    if(dictionaryContains(words, dict)) return words;
 
     var length = words.length;
 

@@ -94,10 +94,15 @@ of items our stack would be holding.
    for( var i = 0; i < input.length; i++ ){
      var c = input[i];
 
+     // ignore non-rules characters
      if( filterChars.indexOf(c) < 0 ) {
        continue;
+
+       // if it's one of the start char rules, push to stack
      } else if( startChars.indexOf(c) >= 0 ) {
        stack.push(c);
+
+       // if it's the closer, check if it matches the rule
      } else if( c !== rules[stack.pop()] ){
        return false;
      }
@@ -111,19 +116,22 @@ of items our stack would be holding.
 Write a function that, given a sentence like the one above, 
 along with the position of an opening parenthesis, 
 finds the corresponding closing parenthesis.
+
+O(n) time complexity and O(1) space
 **/
 
 function getClosingParen(sentence, openingParenIndex) {
   var openNestedParens = 0;
+  var char;
 
-  for (var position = openingParenIndex + 1; position < sentence.length; position++) {
-      var char = sentence[position];
+  for (var i = openingParenIndex + 1; i < sentence.length; i++) {
+      char = sentence[i];
 
       if (char === '(') {
           openNestedParens += 1;
       } else if (char === ')') {
           if (openNestedParens === 0) {
-              return position;
+              return i;
           } else {
               openNestedParens -= 1;
           }
