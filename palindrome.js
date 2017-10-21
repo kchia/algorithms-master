@@ -119,31 +119,29 @@ var palindromeMinCut = function() {
 **/
 var longestPalindromicSubstring = function(string) {
   /* START SOLUTION */
-  var length = string.length;
   var result = "";
 
   // Given starting center indices,
   // find the longest centered palindrome
-  var centeredPalindrome = function(left, right) {
-    while (left >= 0 && right < length && string[left] === string[right]) {
+  var centeredPalindrome = function(str, left, right) {
+    while (left >= 0 && right < str.length && str[left] === str[right]) {
      left--;
      right++;
     }
-    return string.slice(left+1, right);
+    return str.slice(left+1, right);
   };  
 
   // Loop through the whole string,
   // checking for palindromes
   var oddPal, evenPal;
-  for (var i = 0; i < length; i++) {
-    oddPal = centeredPalindrome(i - 1, i + 1);
-    evenPal = centeredPalindrome(i, i + 1);
+  for (var i = 0; i < string.length; i++) {
+    oddPal = centeredPalindrome(string, i - 1, i + 1);
+    evenPal = centeredPalindrome(string, i, i + 1);
 
-    if (oddPal.length > result.length)
-      result = oddPal;
-    if (evenPal.length > result.length)
-      result = evenPal;
-    }
+    if (oddPal.length > result.length) result = oddPal;
+    
+    if (evenPal.length > result.length) result = evenPal;
+  }
 
   return result;
   /* END SOLUTION */

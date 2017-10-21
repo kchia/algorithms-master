@@ -91,6 +91,8 @@ of items our stack would be holding.
      return m+i+rules[i]; 
    }, "")
 
+   // var filterChars = new Set(startChars);
+   
    for( var i = 0; i < input.length; i++ ){
      var c = input[i];
 

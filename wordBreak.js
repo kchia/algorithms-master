@@ -92,7 +92,7 @@ var wordBreak = function(words, dict) {
 
 /**
   Recursive Solution
-  Time complexity: O(2^n) runtime
+  Time complexity: Exponential runtime
 **/
 
 var dictionary = {

@@ -16,6 +16,9 @@
 This technique, called memoization, is a very common one to optimize exponential time recursive algo-
 rithms.
 
+The total number of nodes in the tree will represent the runtime, since each call only does 0(1) 
+work outside of its recursive calls.Therefore, the number of calls is the runtime.
+
 **/
 
 /**
@@ -42,17 +45,36 @@ var fib = function(n) {
 
 /**
   BOTTOM-UP DYNAMIC PROGRAMMING
+
+  O(n) time complexity and O(1) space complexity
 **/
 var fib = function (n) {
   // TODO: implement me!
   /* START SOLUTION */
   // fast solution
   var fibs = [0, 1];
-  for(; n > 1; n--) {
-    console.log(fibs);
+
+  while(n > 1) {
     fibs.push(fibs.shift() + fibs[0]);
+    console.log(fibs);
+    n--;
   }
+
   return fibs[n];
   /* END SOLUTION */
 };
+
+function calculateEvenSum (limit = 4000000) {
+  let fibs = [0, 1];
+  let lastFib = fibs[0];
+  let sum = 0;
+  while(lastFib < limit) {
+    fibs.push(fibs.shift() + fibs[0]);
+    lastFib = fibs[1];
+    if(lastFib % 2 === 0 && lastFib < limit) sum += lastFib;
+  }
+  return sum;
+}
+
+
 

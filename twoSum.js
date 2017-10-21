@@ -33,7 +33,7 @@ var sortedTwoSum = function(array, target) {
     sum = array[i] + array[j];
   }
 
-  return sum !== target ? [-1, -1] : [i, j];
+  return sum === target ? [i, j] : [-1, -1];
 };
 
 /**

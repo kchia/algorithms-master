@@ -12,6 +12,7 @@ var findProductOfAllOthersExceptAt = function(array) {
     productSoFar *= array[i];
   }
 
+  console.log(result);
   // at each index, compute products of all integers after the index
   productSoFar = 1
   for(var j = array.length - 1; j >= 0; j--) {

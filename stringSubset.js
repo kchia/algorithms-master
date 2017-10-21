@@ -1,5 +1,6 @@
 /**
   O(n) time & space solution
+  can also add to a set
 **/
 
 Array.prototype.isSubsetOf = function(array) {
